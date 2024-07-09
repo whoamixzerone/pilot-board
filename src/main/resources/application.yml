@@ -1,0 +1,32 @@
+spring:
+  application:
+    name: pilot-board
+
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/pilot_board?serverTimezone=Asia/Seoul
+    username: scott
+    password: scott
+
+  jpa:
+    defer-datasource-initialization: ture
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        show_sql: true
+        format_sql: true
+        highlight_sql: true
+
+  sql:
+    init:
+      mode: always
+      data-locations: classpath*:db/data.sql
+
+  thymeleaf:
+    cache: false
+    prefix: file:src/main/resources/templates/
+
+#  devtools:
+#    livereload:
+#      enabled: true
