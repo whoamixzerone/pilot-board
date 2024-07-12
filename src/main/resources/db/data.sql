@@ -1,4 +1,4 @@
-INSERT INTO users(email, password, name, created_at, updated_at) VALUES('admin@admin', '1', '어드민', now(), now());
+INSERT INTO users(email, password, name, role, created_at, updated_at) VALUES('admin@admin', '1', '어드민', 0, now(), now());
 
 INSERT INTO board(title, content, user_id, created_at, updated_at) VALUES('제목1', '내용1', 1, now(), now());
 INSERT INTO board(title, content, user_id, created_at, updated_at) VALUES('제목2', '내용2', 1, now(), now());

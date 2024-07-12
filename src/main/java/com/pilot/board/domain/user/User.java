@@ -1,18 +1,16 @@
 package com.pilot.board.domain.user;
 
 import com.pilot.board.domain.BaseEntity;
+import com.pilot.board.util.RoleConverter;
+import jakarta.persistence.Convert;
 import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
+import jakarta.persistence.PrePersist;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 @Getter
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 @ToString(callSuper = true)
 @Entity(name = "users")
@@ -28,6 +26,14 @@ public class User extends BaseEntity {
     @NotNull
     private String name;
 
-    @Enumerated(EnumType.STRING)
+//    @Enumerated(EnumType.STRING)
+    @Convert(converter = RoleConverter.class)
     private Role role;
+
+    @PrePersist
+    public void initRole() {
+        if (role == null) {
+            role = Role.ROLE_USER;
+        }
+    }
 }
