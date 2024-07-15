@@ -5,6 +5,7 @@ import com.pilot.board.util.RoleConverter;
 import jakarta.persistence.Convert;
 import jakarta.persistence.Entity;
 import jakarta.persistence.PrePersist;
+import jakarta.persistence.Table;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
@@ -13,7 +14,8 @@ import lombok.*;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 @ToString(callSuper = true)
-@Entity(name = "users")
+@Table(name = "users")
+@Entity
 public class User extends BaseEntity {
 
     @Email
@@ -26,9 +28,15 @@ public class User extends BaseEntity {
     @NotNull
     private String name;
 
-//    @Enumerated(EnumType.STRING)
     @Convert(converter = RoleConverter.class)
     private Role role;
+
+    @Builder
+    public User(String email, String password, String name) {
+        this.email = email;
+        this.password = password;
+        this.name = name;
+    }
 
     @PrePersist
     public void initRole() {

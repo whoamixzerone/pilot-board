@@ -1,5 +1,6 @@
-package com.pilot.board.domain.board;
+package com.pilot.board.domain.board.dto;
 
+import com.pilot.board.domain.board.Board;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
@@ -10,7 +11,7 @@ import java.time.LocalDateTime;
 
 @Getter
 @NoArgsConstructor
-public class BoardPageableResponse {
+public class BoardResponse {
 
     @NotNull
     private Long id;
@@ -22,7 +23,7 @@ public class BoardPageableResponse {
     private LocalDateTime createdAt;
 
     @Builder
-    public BoardPageableResponse(Long id, String title, String content, String name, LocalDateTime createdAt) {
+    public BoardResponse(Long id, String title, String content, String name, LocalDateTime createdAt) {
         this.id = id;
         this.title = title;
         this.content = content;
@@ -30,8 +31,8 @@ public class BoardPageableResponse {
         this.createdAt = createdAt;
     }
 
-    public static BoardPageableResponse toDto(final Board board) {
-        return BoardPageableResponse.builder()
+    public static BoardResponse toDto(final Board board) {
+        return BoardResponse.builder()
                 .id(board.getId())
                 .title(board.getTitle())
                 .content(board.getContent())

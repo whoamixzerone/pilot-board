@@ -1,6 +1,9 @@
 spring:
   application:
     name: pilot-board
+  output:
+    ansi:
+      enabled: ALWAYS
 
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -27,6 +30,8 @@ spring:
     cache: false
     prefix: file:src/main/resources/templates/
 
-#  devtools:
-#    livereload:
-#      enabled: true
+logging:
+  level:
+    com:
+      pilot:
+        board: trace

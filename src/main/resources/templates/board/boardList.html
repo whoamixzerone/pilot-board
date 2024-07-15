@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -10,6 +10,16 @@
 <body>
 <div class="container text-center">
     <h1>Board List</h1>
+    <div class="d-flex justify-content-end">
+        <button th:onclick="|location.href='@{/users/signIn}'|">Sign In</button>
+        <button th:onclick="|location.href='@{/users/signUp}'|">Sign Up</button>
+<!--        <div class="m-1" sec:authorize="isAnonymous()">-->
+<!--            <button th:onclick="|location.href='@{/users/signIn}'|">Sign In</button>-->
+<!--        </div>-->
+<!--        <div class="m-1" sec:authorize="isAuthenticated()">-->
+<!--            <button th:onclick="|location.href='@{/users/signUp}'|">Sign Up</button>-->
+<!--        </div>-->
+    </div>
     <div class="row bd-example-row fs-4">
         <div class="col">
             No
@@ -24,11 +34,11 @@
             Creation date
         </div>
     </div>
-    <div class="row fs-5" th:each="board : ${boards}">
-        <div class="col" th:text="${board.id}"></div>
-        <div class="col" th:text="${board.title}"></div>
-        <div class="col" th:text="${board.name}"></div>
-        <div class="col" th:text="${#temporals.format(board.createdAt, 'yyyy/MM/dd HH:mm')}"></div>
+    <div class="row fs-5" th:each="board : ${boards}" th:object="${board}" th:onclick="|location.href='@{/boards/{id}(id=*{id})}'|">
+        <div class="col" th:text="*{id}"></div>
+        <div class="col" th:text="*{title}"></div>
+        <div class="col" th:text="*{name}"></div>
+        <div class="col" th:text="*{#temporals.format(createdAt, 'yyyy/MM/dd HH:mm')}"></div>
     </div>
 </div>
 </body>

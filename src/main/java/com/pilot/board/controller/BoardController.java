@@ -1,7 +1,7 @@
 package com.pilot.board.controller;
 
-import com.pilot.board.domain.board.Board;
-import com.pilot.board.domain.board.BoardPageableResponse;
+import com.pilot.board.domain.board.dto.BoardPageableResponse;
+import com.pilot.board.domain.board.dto.BoardResponse;
 import com.pilot.board.service.BoardService;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
@@ -14,9 +14,8 @@ import org.springframework.data.web.SortDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-
-import java.util.List;
 
 @Controller
 @RequestMapping("/boards")
@@ -42,5 +41,13 @@ public class BoardController {
         model.addAttribute("boards", boards);
 
         return "board/boardList";
+    }
+
+    @GetMapping("/{id}")
+    public String findById(@PathVariable("id") long id, Model model) {
+        BoardResponse boardResponse = boardService.findById(id);
+        model.addAttribute("board", boardResponse);
+
+        return "board/boardDetail";
     }
 }

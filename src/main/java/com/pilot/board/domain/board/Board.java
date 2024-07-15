@@ -2,9 +2,7 @@ package com.pilot.board.domain.board;
 
 import com.pilot.board.domain.BaseEntity;
 import com.pilot.board.domain.user.User;
-import jakarta.persistence.Entity;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -15,7 +13,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString(callSuper = true)
-@Entity(name = "board")
+@Entity
 public class Board extends BaseEntity {
 
     @NotNull
@@ -23,7 +21,7 @@ public class Board extends BaseEntity {
 
     private String content;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
 }
