@@ -38,6 +38,10 @@ public class User extends BaseEntity {
         this.name = name;
     }
 
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     @PrePersist
     public void initRole() {
         if (role == null) {

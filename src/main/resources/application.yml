@@ -35,3 +35,6 @@ logging:
     com:
       pilot:
         board: trace
+    org:
+      springframework:
+        security: debug

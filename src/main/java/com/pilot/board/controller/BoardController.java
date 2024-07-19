@@ -11,6 +11,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.data.web.SortDefault;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -33,8 +34,10 @@ public class BoardController {
                     @SortDefault(sort = "createdAt", direction = Sort.Direction.DESC),
                     @SortDefault(sort = "id", direction = Sort.Direction.DESC)
             }) Pageable pageable,
-            Model model
+            Model model,
+            Authentication authentication
     ) {
+        log.info("authentication: {}", authentication);
         Page<BoardPageableResponse> boards = boardService.findAll(pageable);
         log.info("boards pageable: {}", boards.getPageable());
         log.info("boards totalPages: {}", boards.getTotalPages());
@@ -49,5 +52,10 @@ public class BoardController {
         model.addAttribute("board", boardResponse);
 
         return "board/boardDetail";
+    }
+
+    @GetMapping("/new")
+    public String create() {
+        return "board/boardWrite";
     }
 }
